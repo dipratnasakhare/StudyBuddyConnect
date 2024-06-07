@@ -18,17 +18,17 @@ import { AuthSignInButton } from "../../../components/AuthSignInButton";
 import { GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../GoogleAuth/GoogleSignIn";
 import { useState } from "react";
-import { googleAuthenticate } from "../../../redux/Admin/AdminAction";
+// import { googleAuthenticate } from "../../../redux/Admin/AdminAction";
 
 export const SignIn = () => {
-  const [phoneNumber, setPhoneNumber] = useState(+919109760078);
-  const [code, setCode] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(''); //+919109760078
+  // const [code, setCode] = useState("");
+  // const [verificationCode, setVerificationCode] = useState("");
 
   const signInWithPhoneNumberAuth = async () => {
     
 
-//  const dispatch = useDispatch()
+// const dispatch = useDispatch()
 
     // const appVerifier = new RecaptchaVerifier("recaptcha", {}, auth);
   

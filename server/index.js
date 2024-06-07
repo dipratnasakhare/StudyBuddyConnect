@@ -2,6 +2,9 @@
 const express = require("express")
 const { connect } = require("./config/Database")
 const cors = require("cors");
+
+// const { UserAuthRoutes } = require("./routes/userAuth.routes");
+
 require('dotenv').config();
 
 // Routes here 
@@ -13,8 +16,9 @@ app.use(express.json());
 
 // user data routes here
 
-
 // user authentication routes and admin also 
+
+// app.use("/user",UserAuthRoutes)
 
 
 // admin dashboard routes 
