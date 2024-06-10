@@ -1,8 +1,7 @@
 
 import { Route, Routes } from "react-router-dom";
 import { Authentication } from "../pages/Authentication/Authentication";
-import { Home } from "../pages/Home/Home";
-import { SidebarWithHeader } from "../components/HomeNavbar";
+import { SidebarWithHeader } from "../pages/Home/HomeNavbar";
 
 export const RoutingList = () => {
 

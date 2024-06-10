@@ -33,6 +33,7 @@ import {
   FiChevronDown,
 } from 'react-icons/fi'
 import { IconType } from 'react-icons'
+import ChatPage from '../Chats/Chatpage'
 
 
 const LinkItems = [
@@ -198,6 +199,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
         {/* Content */}
 
         kjb
+
+        <ChatPage/>
 
 
 
