@@ -9,29 +9,34 @@ import {
   HStack,
   Input,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 
 import { AuthSignInButton } from "../../../components/AuthSignInButton";
 
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+import { useNavigate } from "react-router-dom";
 
 import { GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../GoogleAuth/GoogleSignIn";
 import { useState } from "react";
-// import { googleAuthenticate } from "../../../redux/Admin/AdminAction";
+
+import { googleAuthenticate } from "../../../redux/Admin/AdminAction";
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState(''); //+919109760078
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const toast = useToast()
+   
+
   // const [code, setCode] = useState("");
   // const [verificationCode, setVerificationCode] = useState("");
 
   const signInWithPhoneNumberAuth = async () => {
     
-
-// const dispatch = useDispatch()
-
     // const appVerifier = new RecaptchaVerifier("recaptcha", {}, auth);
-  
     // try {
     //   const result = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
     //   console.log(result);
@@ -43,14 +48,14 @@ export const SignIn = () => {
 
   const logGoogleUser = async () => {
 
-    // dispatch(googleAuthenticate())
 
     const provider = await new GoogleAuthProvider();
 
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        dispatch(googleAuthenticate(result, user, toast))
+        navigate('/')
       })
       .catch((error) => {
         console.log(error);

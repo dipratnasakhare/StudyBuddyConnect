@@ -1,8 +1,9 @@
-// const express = require("express");
-// const UserAuthRoutes = express.Router();
+const express = require("express");
+const UserAuthRoutes = express.Router();
 
-// // Model import for adding user
-// const { ModelUserAuth } = require("../models/UserAuth.models");
+// Model import for adding user
+const { ModelUserAuth } = require("../models/UserAuth.models");
+const jwt = require("jsonwebtoken"); // jwt import for geting unic token
 
 // // UserAuthRoutes.get("/", async (req, res) => {
 // //   const { page = 1, limit = 4 } = req.query;
@@ -75,93 +76,49 @@
 // //   }
 // // });
 
-// UserAuthRoutes.get("/auth", async (req, res) => {
-//   const UserDetails = req.body;
-// //   const { email, password } = UserDetails;
-// //   const Key = "Style_User-!`^8};^*3iu($*";
+UserAuthRoutes.post("/auth", async (req, res) => {
+  const userDetails = req.body;
+  const unic = "8723ty8723872109809][32/";
 
-//      res.status(200).send({ msg: "Wrong password", status: "error" });
+  console.log('SingleUser', 'user')
 
-// //   try {
+  try {
+    let SingleUser = await ModelUserAuth.find({ email: userDetails.email });
 
-// //     // let User_Details = await ModelUserAuth.find({ email });
-// //     // if (User_Details.length > 0) {
-// //     //   if (User_Details[0].user_type === "Client") {
-// //     //     bcrypt.compare(
-// //     //       password,
-// //     //       User_Details[0].password,
-// //     //       async (err, result) => {
-// //     //         if (result) {
-// //     //           const token = jwt.sign({ email, id: password }, Key);
-// //     //           res
-// //     //             .status(200)
-// //     //             .send({
-// //     //               msg: "User login successfully",
-// //     //               UserId: User_Details[0].UserId,
-// //     //               name: User_Details[0].first_name,
-// //     //               token,
-// //     //               status: "success",
-// //     //             });
-// //     //         } else {
-// //     //           res.status(200).send({ msg: "Wrong password", status: "error" });
-// //     //         }
-// //     //         if (err) {
-// //     //           res
-// //     //             .status(200)
-// //     //             .send({
-// //     //               msg: "Something went wrong please try again",
-// //     //               status: "error",
-// //     //             });
-// //     //         }
-// //     //       }
-// //     //     );
-// //     //   } else {
-// //     //     bcrypt.compare(
-// //     //       password,
-// //     //       User_Details[0].password,
-// //     //       async (err, result) => {
-// //     //         if (result) {
-// //     //           const token = jwt.sign({ email, id: password }, Key);
-// //     //           res
-// //     //             .status(200)
-// //     //             .send({
-// //     //               msg: "Admin login successfully",
-// //     //               UserId: User_Details[0].UserId,
-// //     //               name: User_Details[0].first_name,
-// //     //               last: User_Details[0].last_name,
-// //     //               mobile: User_Details[0].mobile_no,
-// //     //               token,
-// //     //               status: "success",
-// //     //             });
-// //     //         } else {
-// //     //           res.status(200).send({ msg: "Wrong password", status: "error" });
-// //     //         }
-// //     //         if (err) {
-// //     //           res
-// //     //             .status(200)
-// //     //             .send({
-// //     //               msg: "Something went wrong please try again",
-// //     //               err,
-// //     //               status: "error",
-// //     //             });
-// //     //         }
-// //     //       }
-// //     //     );
-// //     //   }
-// //     // } else {
-// //     //   res.status(200).send({ msg: "User not found", status: "error" });
-// //     // }
-// //   } catch (err) {
-// //     console.log(err, "err line 98");
-// //     res
-// //       .status(200)
-// //       .send({
-// //         msg: "Something went wrong please try again",
-// //         err,
-// //         status: "error",
-// //       });
-// //   }
-// });
+    if (SingleUser.length !== 0) {
+
+
+
+
+      return res
+        .status(200)
+        .send({ msg: "Welcome back", status: "success" });
+    } else {
+
+      // const UserId = jwt.sign({ email, id: 'password' }, unic);
+
+      // console.log(UserId, 'user')
+
+      const data = {
+        email: userDetails.email,
+        user: userDetails.userName,
+        data: userDetails.data,
+        // UserId,
+      };
+
+      let NewUser = new ModelUserAuth(data);
+      NewUser.save();
+
+      res.status(200).send({ msg: "User has been created", status: "success" });
+    }
+  } catch (err) {
+    res.status(200).send({
+      msg: "Something went wrong please try again",
+      err,
+      status: "error",
+    });
+  }
+});
 
 // // UserAuthRoutes.post("/changePass", async (req, res) => {
 // //   const email = req.body.email;
@@ -224,4 +181,4 @@
 // //   }
 // // });
 
-// module.exports = { UserAuthRoutes };
+module.exports = { UserAuthRoutes };

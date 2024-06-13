@@ -3,7 +3,7 @@ const express = require("express")
 const { connect } = require("./config/Database")
 const cors = require("cors");
 
-// const { UserAuthRoutes } = require("./routes/userAuth.routes");
+const { UserAuthRoutes } = require("./routes/UserAuth.routes");
 
 require('dotenv').config();
 
@@ -18,14 +18,14 @@ app.use(express.json());
 
 // user authentication routes and admin also 
 
-// app.use("/user",UserAuthRoutes)
+app.use("/user", UserAuthRoutes)
 
 // admin dashboard routes 
 
-
-
 app.get("/", (req, res) => {
-    res.send("Welcome To Backend")
+
+    res.send("Welcome To Study Buddy Backend")
+
 })
 
 app.listen(process.env.MONGOOSE_PORT_SERVER, async ()=> {

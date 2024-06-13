@@ -1,23 +1,35 @@
 import axios from "axios";
 import {  GET_USER_COUNT } from "./AdminTypes";
 
+const backendUrl = 'http://localhost:4000'
 
-export const googleAuthenticate = () => async (dispatch) => {
-  // const toast = useToast()
+export const googleAuthenticate = (data, user, toast) => async (dispatch) => {
+
+  console.log(data, 'user')
+  console.log(user.displayName, 'user')
+  console.log(user.email, 'user')
+
+  const userData = {data, userName:user.displayName, email:user.email}
+
   try {
-    let res = await axios.get(`${process.env.REACT_APP_MAIN_SERVER_URL}/users`);
-    const data = res.data.count
-
-
-    // dispatch({ type: GET_USER_COUNT, payload: data })
+    let res = await axios.post(`${backendUrl}/user/auth`, userData);
+    console.log(res)
+    toast({
+      position: "top",
+      title: res.data.msg,
+      status: res.data.status,
+      duration: 2000,
+      isClosable: true,
+    });
   } catch (err) {
-    console.log(err);
-    // toast({
-    //   position: "top",
-    //   title: "Something is wrong please try later",
-    //   status: "error",
-    //   duration: 2000,
-    //   isClosable: true,
-    // });
+    toast({
+      position: "top",
+      title: "Something is wrong please try later",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+    });
   }
+
+
 }
