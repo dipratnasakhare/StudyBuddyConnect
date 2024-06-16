@@ -87,29 +87,24 @@ UserAuthRoutes.post("/auth", async (req, res) => {
 
     if (SingleUser.length !== 0) {
 
-
-
-
       return res
         .status(200)
-        .send({ msg: "Welcome back", status: "success" });
+        .send({ msg: "Welcome back", data: userDetails.data , status: "success" });
     } else {
 
-      // const UserId = jwt.sign({ email, id: 'password' }, unic);
-
-      // console.log(UserId, 'user')
+      const UserId = jwt.sign({ id:userDetails.email }, unic);
 
       const data = {
         email: userDetails.email,
         user: userDetails.userName,
         data: userDetails.data,
-        // UserId,
+        UserId,
       };
 
       let NewUser = new ModelUserAuth(data);
       NewUser.save();
 
-      res.status(200).send({ msg: "User has been created", status: "success" });
+      res.status(200).send({ msg: "User has been created", data: userDetails.data, status: "success" });
     }
   } catch (err) {
     res.status(200).send({
